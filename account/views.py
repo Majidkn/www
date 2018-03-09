@@ -5,11 +5,13 @@ from django.contrib.auth import authenticate
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
+
 # Create your views here.
 from account.forms import SignUpForm, LoginForm
 
 
 def signup(request):
+    message = ''
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -23,6 +25,7 @@ def signup(request):
             return redirect('login')
         else:
             message = "اطلاعات نامعتبر است"
+
     else:
         form = SignUpForm()
 
