@@ -18,5 +18,5 @@ class StudyField(models.Model):
     name = models.CharField(max_length=254, blank=True)
 
     def __str__(self):
-        return self.name.encode('utf-8')
+        return self.name
 

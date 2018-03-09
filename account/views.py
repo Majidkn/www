@@ -44,7 +44,10 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                return redirect('home')
+                if user.is_staff or user.is_superuser:
+                    return redirect('admin')
+                else:
+                    return redirect('home')
             else:
                 message = "*نام کاربری یا گذرواژه اشتباه است"
     else:
