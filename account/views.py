@@ -1,8 +1,12 @@
-from django.contrib.auth import authenticate, login
+# -*- coding: utf-8 -*-
+import time
+from django.contrib import messages
+from django.contrib.auth import authenticate
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
-
+from django.contrib.auth import login as auth_login
 # Create your views here.
-from account.forms import SignUpForm
+from account.forms import SignUpForm, LoginForm, NewPostForm
 from account.models import User
 from post.models import Post, Comment, Like, DisLike
 
@@ -14,14 +18,36 @@ def signup(request):
             user_ = form.save(commit=False)
             user_.is_active = True
             user_.save()
-            created_user = authenticate(username=form.cleaned_data['username'],
-                                        password=form.cleaned_data['password1'])
-            login(request, created_user)
-            return redirect('profile')
+            # created_user = authenticate(username=form.cleaned_data['username'],
+            #                             password=form.cleaned_data['password1'])
+            # login(request, created_user)
+
+            return redirect('login')
+        else:
+            message = "اطلاعات نامعتبر است"
     else:
         form = SignUpForm()
 
-    return render(request, 'account/_signup.html', {'form': form})
+    return render(request, 'account/_signup.html', {'form': form, 'message': message})
+
+
+def login(request):
+    message = ""
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                return HttpResponse('شما با موفقیت لاگین شدید')
+            else:
+                message = "نام کاربری یا گذرواژه اشتباه است"
+    else:
+        form = LoginForm()
+
+    return render(request, 'account/_login.html', {'form': form, 'message': message})
 
 
 def profile(request, username):
@@ -39,3 +65,15 @@ def profile(request, username):
         'user': user,
         'posts': posts,
     })
+
+def new_post(request):
+        if request.method == 'POST':
+            form = NewPostForm(request.POST)
+            if form.is_valid():
+                body = form.cleaned_data['body']
+                post = Post(body=body, user=request.user)
+                post.save()
+                return redirect('/account/'+request.user.username)
+        else:
+            form = NewPostForm()
+        return render(request, 'account/_new_post.html', {'form': form})
