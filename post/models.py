@@ -8,6 +8,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, blank=True, null=True)
     body = models.TextField(max_length=280)
     is_anonymous = models.BooleanField(default=False)
+    date_created = models.DateTimeField(auto_now_add=True)
 
 
 class Comment(models.Model):
