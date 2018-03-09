@@ -10,7 +10,6 @@ from account.forms import SignUpForm, LoginForm
 
 
 def signup(request):
-    message = ""
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -47,3 +46,11 @@ def login(request):
         form = LoginForm()
 
     return render(request, 'account/_login.html', {'form': form, 'message': message})
+
+
+def profile(request):
+    current_user = request.user
+
+    return render(request, 'account/_profile.html', {
+        'user': current_user
+    })
