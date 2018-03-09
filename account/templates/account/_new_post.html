@@ -1,21 +1,24 @@
 {% extends '__base.html' %}
 
 {% block content %}
-    <div>
-        <form method="post">
-            {% csrf_token %}
-            {% for field in form %}
-            <p>
-                {{ field }}
-                <!--{% if field.help_text %}-->
-                <!--<small style="color: grey">{{ field.help_text }}</small>-->
-                <!--{% endif %}-->
-                <!--{% for error in field.errors %}-->
-                    <!--<p style="color: red">{{ error }}</p>-->
-                <!--{% endfor %}-->
-            </p>
-            {% endfor %}
-            <button class="btn btn-success" type="submit">پست</button>
-        </form>
-    </div>
+<div>
+    {% if not user.is_authenticated %}
+    <span>YOU'RE NOT LOGIN</span>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+            {{ field }}
+            <!--{% if field.help_text %}-->
+            <!--<small style="color: grey">{{ field.help_text }}</small>-->
+            <!--{% endif %}-->
+            <!--{% for error in field.errors %}-->
+            <!--<p style="color: red">{{ error }}</p>-->
+            <!--{% endfor %}-->
+        </p>
+        {% endfor %}
+        <button class="btn btn-success" type="submit">پست</button>
+    </form>
+</div>
 {% endblock %}}

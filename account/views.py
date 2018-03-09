@@ -72,14 +72,24 @@ def profile(request, username):
         'posts': posts,
     })
 
+
 def new_post(request):
-        if request.method == 'POST':
-            form = NewPostForm(request.POST)
-            if form.is_valid():
-                body = form.cleaned_data['body']
+    if request.method == 'POST':
+        form = NewPostForm(request.POST)
+        if form.is_valid():
+            body = form.cleaned_data['body']
+            if request.user.is_authenticated:
                 post = Post(body=body, user=request.user)
-                post.save()
-                return redirect('/account/'+request.user.username)
-        else:
-            form = NewPostForm()
-        return render(request, 'account/_new_post.html', {'form': form})
+            else:
+                user = User(pk=0)
+                post = Post(body=body, user=user)
+
+            post.save()
+            if request.user.is_authenticated:
+                return redirect('/account/' + request.user.username)
+            else:
+                return redirect('/home')
+
+    else:
+        form = NewPostForm()
+    return render(request, 'account/_new_post.html', {'form': form})

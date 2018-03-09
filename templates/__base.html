@@ -3,12 +3,15 @@
 <head>
     <title>WWW :)</title>
     <meta charset="UTF-8">
+    <script type="javascript" src="{% static 'script/jquery.js' %}"></script>
+
 </head>
 <body>
 <div class="site-body" style="margin-top: 80px">
     {% block content %}
     {% endblock %}
-    <script type="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {% verbatim %}
+    {% endverbatim %}
 </div>
 </body>
 </html>

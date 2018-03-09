@@ -63,7 +63,7 @@ class LoginForm(forms.Form):
 
 
 class NewPostForm(forms.Form):
-    body = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'بنویسید...'}))
+    body = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'بنویسید...'}))
 
     class Meta:
         model = User

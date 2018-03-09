@@ -10,5 +10,5 @@ from django.conf.urls.static import static
 urlpatterns = [
     # url(r'^$', views.HomeView, name='base'),
     # url(r'^home', views.HomeView, name='home'),
-    url(r'^$', views.home, name='home')
+    url(r'^', views.home, name='home')
 ]
