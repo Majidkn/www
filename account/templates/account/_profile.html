@@ -11,9 +11,8 @@
             <a href="/posts/{{post.id}}"><img style="height: 40px;" src="/media/{{post.user.avatar}}" /></a>
             <a href="/account/{{post.user.username}}">@{{post.user.username}}</a>
             <p>text: {{post.body}}</p>
-            <p>comments: {{post.comments}}</p>
-            <p>likes: {{post.likes}}</p>
-            <p>dislikes: {{post.dislikes}}</p>
+            <a href="/posts/{{post.id}}/like"><p>likes: {{post.likes}}</p></a>
+            <a href="/posts/{{post.id}}/dislike"><p>dislikes: {{post.dislikes}}</p></a>
         </div>
     {% endfor %}
 {% endblock %}

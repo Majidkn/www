@@ -6,6 +6,9 @@ from django.db import models
 
 
 # Create your models here.
+from post.models import Post
+
+
 class User(AbstractUser):
     name = models.CharField(max_length=254, blank=True)
     student_id = models.CharField(max_length=9, blank=True)

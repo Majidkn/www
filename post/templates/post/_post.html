@@ -6,8 +6,10 @@
         <a href="/account/{{post.user.username}}">@{{post.user.username}}</a>
         <p>text: {{post.body}}</p>
         <p>comments: {{post.comments}}</p>
-        <p>likes: {{post.likes}}</p>
-        <p>dislikes: {{post.dislikes}}</p>
-        <a href="#">نمایش پست</a>
+        <a href="/posts/{{post.id}}/like"><p>likes: {{post.likes}}</p></a>
+        <a href="/posts/{{post.id}}/dislike"><p>dislikes: {{post.dislikes}}</p></a>
+        {% if user.id == post.user_id %}
+            <a href="/posts/{{post.id}}/delete">×حذف پست×</a>
+        {% endif %}
     </div>
 {% endblock %}
