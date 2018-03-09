@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
+
 # Create your views here.
 from account.forms import SignUpForm, LoginForm, NewPostForm
 from account.models import User
@@ -12,6 +13,7 @@ from post.models import Post, Comment, Like, DisLike
 
 
 def signup(request):
+    message = ''
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -25,6 +27,7 @@ def signup(request):
             return redirect('login')
         else:
             message = "اطلاعات نامعتبر است"
+
     else:
         form = SignUpForm()
 
@@ -41,9 +44,9 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                return HttpResponse('شما با موفقیت لاگین شدید')
+                return redirect('home')
             else:
-                message = "نام کاربری یا گذرواژه اشتباه است"
+                message = "*نام کاربری یا گذرواژه اشتباه است"
     else:
         form = LoginForm()
 

@@ -19,6 +19,7 @@
             {% endfor %}
             <button class="btn btn-success" type="submit">ورود</button>
             <p style="color: red">{{message}}</p>
+            {% if message.signup %}<p style="color: green">{{message.signup}}</p>{% endif %}
         </div>
     </form>
 </div>
