@@ -29,4 +29,15 @@
         </div>
     </form>
 </div>
+<script type="javascript">
+    $("#id_username").change(function () {
+
+        $.ajax({
+            url: '/ajax/validate_username/',
+            data: {
+                'username': username
+            },
+        });
+    });
+</script>
 {% endblock %}

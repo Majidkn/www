@@ -41,11 +41,13 @@ class SignUpForm(UserCreationForm):
             raise forms.ValidationError("رمزعبور باید دارای کارکترهای ویژه باشد")
         return password
 
+
     def clean_student_id(self):
-        student_id = self.cleaned_data['student_id']
-        if len(student_id) != 9:
-            raise forms.ValidationError("باید ۹ تا باشه")
-        return student_id
+        st = self.cleaned_data['student_id']
+        if len(st) != 9:
+            raise forms.ValidationError("باید ۹ ا")
+
+
 
     class Meta:
         model = User

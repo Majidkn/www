@@ -42,9 +42,9 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                return HttpResponse('شما با موفقیت لاگین شدید')
+                return redirect('home')
             else:
-                message = "نام کاربری یا گذرواژه اشتباه است"
+                message = "*نام کاربری یا گذرواژه اشتباه است"
     else:
         form = LoginForm()
 
