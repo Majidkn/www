@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from account.forms import SignUpForm
+from account.models import User
+from post.models import Post, Comment, Like, DisLike
 
 
 def signup(request):
@@ -22,9 +24,18 @@ def signup(request):
     return render(request, 'account/_signup.html', {'form': form})
 
 
-def profile(request):
-    current_user = request.user
-
+def profile(request, username):
+    # current_user = request.user
+    user = User.objects.get(username=username)
+    posts = Post.objects.filter(user_id=user.id)
+    for post in posts:
+        comments = Comment.objects.filter(post_id=post.id)
+        likes = Like.objects.filter(post_id=post.id)
+        dislikes = DisLike.objects.filter(post_id=post.id)
+        post.comments = len(comments)
+        post.likes = len(likes)
+        post.dislikes = len(dislikes)
     return render(request, 'account/_profile.html', {
-        'user': current_user
+        'user': user,
+        'posts': posts,
     })

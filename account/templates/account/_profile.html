@@ -5,4 +5,14 @@
     <img style="height: 100px;" src="/media/{{user.avatar}}" />
     <p>{{user.email}}</p>
     <p>{{user.study_field}}</p>
+    {% for post in posts %}
+        <div class="posts" style="border: 1px solid blue;">
+            <img style="height: 40px;" src="/media/{{post.user.avatar}}" />
+            <a href="/profile/{{post.user.username}}">@{{post.user.username}}</a>
+            <p>text: {{post.body}}</p>
+            <p>comments: {{post.comments}}</p>
+            <p>likes: {{post.likes}}</p>
+            <p>dislikes: {{post.dislikes}}</p>
+        </div>
+    {% endfor %}
 {% endblock %}
