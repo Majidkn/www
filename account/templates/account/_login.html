@@ -2,7 +2,7 @@
 
 {% block content %}
 <div style="display: block;margin: 0 auto;max-width: 300px;position: relative;padding-top: 50px">
-    <h2>Sign up</h2>
+    <h2>ورود</h2>
     <form method="post">
         <div class="form-group">
             {% csrf_token %}
@@ -17,15 +17,8 @@
             {% endfor %}
             </p>
             {% endfor %}
-            <button class="btn btn-success" type="submit">ثبت نام</button>
-            <p style="color: red;">{{message}}</p>
-            {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
+            <button class="btn btn-success" type="submit">ورود</button>
+            <p style="color: red">{{message}}</p>
         </div>
     </form>
 </div>
