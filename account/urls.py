@@ -12,6 +12,7 @@ urlpatterns = [
     # url(r'^home', views.HomeView, name='home'),
     url(r'^signup', views.signup, name='signup'),
     url(r'^login', views.login, name='login'),
+    url(r'^logout', auth_views.logout, name='logout'),
     url(r'^new_post', views.new_post, name='new_post'),
     url(r'^(?P<username>[\w-]+)', views.profile, name='profile'),
 ]

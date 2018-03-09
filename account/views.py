@@ -2,6 +2,7 @@
 import time
 from django.contrib import messages
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
@@ -58,8 +59,8 @@ def login(request):
 
 def profile(request, username):
     # current_user = request.user
-    user = User.objects.get(username=username)
-    posts = Post.objects.filter(user_id=user.id)
+    userx = User.objects.get(username=username)
+    posts = Post.objects.filter(user_id=userx.id)
     for post in posts:
         comments = Comment.objects.filter(post_id=post.id)
         likes = Like.objects.filter(post_id=post.id)
@@ -68,18 +69,22 @@ def profile(request, username):
         post.likes = len(likes)
         post.dislikes = len(dislikes)
     return render(request, 'account/_profile.html', {
-        'user': user,
+        'user': userx,
         'posts': posts,
     })
 
+
+@login_required(login_url='/account/login')
 def new_post(request):
-        if request.method == 'POST':
-            form = NewPostForm(request.POST)
-            if form.is_valid():
-                body = form.cleaned_data['body']
-                post = Post(body=body, user=request.user)
-                post.save()
-                return redirect('/account/'+request.user.username)
-        else:
-            form = NewPostForm()
-        return render(request, 'account/_new_post.html', {'form': form})
+    if request.method == 'POST':
+        form = NewPostForm(request.POST)
+        if form.is_valid():
+            body = form.cleaned_data['body']
+            is_anonymous = form.cleaned_data['is_anonymous']
+            post = Post(body=body, user=request.user, is_anonymous=is_anonymous)
+            post.save()
+            return redirect('/account/' + request.user.username)
+
+    else:
+        form = NewPostForm()
+    return render(request, 'account/_new_post.html', {'form': form})

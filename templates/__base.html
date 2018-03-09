@@ -3,12 +3,36 @@
 <head>
     <title>WWW :)</title>
     <meta charset="UTF-8">
+    <script type="javascript" src="{% static 'script/jquery.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
+
 </head>
 <body>
+<nav class="navbar navbar-default"
+     style="line-height: 50px; height: 50px;position:fixed; top: 0; left: 0; width: 100%; z-index: 5">
+    <ul style="padding: 0 10px">
+        <li style="display: inline-block"><a href="/home"> Home</a></li>
+        {% if user.is_authenticated %}
+        <li style="display: inline-block; padding-left: 20px" class="pull-right"><a href="/account/logout">Logout</a>
+        </li>
+        <li style="display: inline-block; padding-left: 20px" class="pull-right"><a href="/account/{{user.username}}">Account</a></li>
+        <li style="display: inline-block; padding-left: 20px" class="pull-right"><a href="#">Notif Page :)</a></li>
+        <li style="display: inline-block; padding-left: 20px" class="pull-right">{{user.username}}</li>
+        <li style="display: inline-block; padding-left: 20px" class="pull-right"><img style="max-width: 50px;"
+                                                                                      src="/media/{{user.avatar}}"
+                                                                                      alt=""></li>
+        {% else %}
+        <li style="display: inline-block; padding-left: 20px" class="pull-right"><a href="/account/login">Login</a></li>
+        <li style="display: inline-block" class="pull-right"><a href="/account/signup">Signup</a></li>
+        {% endif %}
+
+    </ul>
+</nav>
 <div class="site-body" style="margin-top: 80px">
-    {% block content %}
-    {% endblock %}
-    <script type="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
 </div>
 </body>
 </html>

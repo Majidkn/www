@@ -63,8 +63,9 @@ class LoginForm(forms.Form):
 
 
 class NewPostForm(forms.Form):
-    body = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'بنویسید...'}))
+    body = forms.CharField(label="", widget=forms.Textarea(attrs={'placeholder': 'بنویسید...'}))
+    is_anonymous = forms.BooleanField(label="پست ناشناس", required=False)
 
     class Meta:
         model = User
-        fields = 'body'
+        fields = ('body', 'is_anonymous')

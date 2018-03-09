@@ -1,18 +1,23 @@
 {% extends '__base.html' %}
 
 {% block content %}
-    <h2>{{user.username}}</h2>
-    <img style="height: 100px;" src="/media/{{user.avatar}}" />
-    <p>{{user.email}}</p>
-    <p>{{user.study_field}}</p>
-    <a href="new_post">+پست جدید</a>
-    {% for post in posts %}
-        <div class="posts" style="border: 1px solid blue;">
-            <a href="/posts/{{post.id}}"><img style="height: 40px;" src="/media/{{post.user.avatar}}" /></a>
-            <a href="/account/{{post.user.username}}">@{{post.user.username}}</a>
-            <p>text: {{post.body}}</p>
+<h2>{{user.username}}</h2>
+<img style="height: 100px;" src="/media/{{user.avatar}}"/>
+<p>{{userx.email}}</p>
+<p>{{userx.study_field}}</p>
+<a href="new_post">+پست جدید</a>
+{% for post in posts %}
+<div class="posts" style="border: 1px solid blue;">
+    <a href="/posts/{{post.id}}"><img style="height: 40px;" src="/media/{{post.user.avatar}}"/></a>
+    {% if not post.is_anonymous or post.user.pk == request.user.pk%}
+    <a href="/account/{{post.user.username}}">@{{post.user.username}}</a>
+    {% else %}
+    <a>@کاربر ناشناس</a>
+    {% endif %}
+    <p>text: {{post.body}}</p>
+    <p>comments: {{post.comments}}</p>
             <a href="/posts/{{post.id}}/like"><p>likes: {{post.likes}}</p></a>
             <a href="/posts/{{post.id}}/dislike"><p>dislikes: {{post.dislikes}}</p></a>
-        </div>
-    {% endfor %}
+</div>
+{% endfor %}
 {% endblock %}

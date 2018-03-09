@@ -2,6 +2,27 @@
 
 {% block content %}
 <div>
-    HOME SWEET HOME :)
+    <header class="jumbotron text-center">
+        HOME SWEET HOME
+    </header>
+    <div>
+        {% for post in posts %}
+        <div class="posts" style="border: 1px solid #e8e8e8;">
+            <a href="/posts/{{post.id}}">
+            <img style="height: 40px;" src="/media/{{post.user.avatar}}"/></a>
+            {% if not post.is_anonymous or post.user.pk == request.user.pk%}
+            <a href="/account/{{post.user.username}}">@{{post.user.username}}</a>
+            {% else %}
+            <a>@کاربر ناشناس</a>
+            {% endif %}
+            <div><p>{{post.body}}</p></div>
+            <div>کامنت: {{post.comments}}</div>
+            <div>لایک: {{post.likes}}</div>
+            <div>دیسلایک: {{post.dislikes}}</div>
+            <div>زمان : {{post.date_created}}</div>
+            <a href="/posts/{{post.id}}"><button>post</button></a>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
