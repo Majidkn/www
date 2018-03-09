@@ -20,3 +20,11 @@ def signup(request):
         form = SignUpForm()
 
     return render(request, 'account/_signup.html', {'form': form})
+
+
+def profile(request):
+    current_user = request.user
+
+    return render(request, 'account/_profile.html', {
+        'user': current_user
+    })
