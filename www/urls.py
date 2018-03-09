@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^$', include('home.urls')),
     url(r'^admin-panel/', include('adminx.urls')),
     url(r'^account/', include('account.urls')),
+    url(r'^posts/', include('post.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
