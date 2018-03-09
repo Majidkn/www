@@ -1,13 +1,16 @@
 {% extends '__base.html' %}
 
 {% block content %}
-    <div class="posts" style="border: 1px solid blue;">
-        <img style="height: 40px;" src="/media/{{post.user.avatar}}" />
-        <a href="/account/{{post.user.username}}">@{{post.user.username}}</a>
-        <p>text: {{post.body}}</p>
-        <p>comments: {{post.comments}}</p>
-        <p>likes: {{post.likes}}</p>
-        <p>dislikes: {{post.dislikes}}</p>
-        <a href="#">نمایش پست</a>
-    </div>
+<div class="posts" style="border: 1px solid blue;">
+    <img style="height: 40px;" src="/media/{{post.user.avatar}}"/>
+    {% if not post.is_anonymous or post.user.pk == request.user.pk%}
+    <a href="/account/{{post.user.username}}">@{{post.user.username}}</a>
+    {% else %}
+    <a>@کاربر ناشناس</a>
+    {% endif %}
+    <p>text: {{post.body}}</p>
+    <p>comments: {{post.comments}}</p>
+    <p>likes: {{post.likes}}</p>
+    <p>dislikes: {{post.dislikes}}</p>
+</div>
 {% endblock %}

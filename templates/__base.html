@@ -4,14 +4,15 @@
     <title>WWW :)</title>
     <meta charset="UTF-8">
     <script type="javascript" src="{% static 'script/jquery.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
 
 </head>
 <body>
 <div class="site-body" style="margin-top: 80px">
-    {% block content %}
-    {% endblock %}
-    {% verbatim %}
-    {% endverbatim %}
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
 </div>
 </body>
 </html>
